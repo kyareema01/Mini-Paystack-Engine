@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Mini-Paystack Dashboard</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #f9f9f9;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #00bbff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    pre {
+      background: #eee;
+      padding: 15px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Mini Paystack Dashboard</h1>
+
+  <div class="card">
+    <h3>System Audit</h3>
+    <button onclick="getData('audit')">Run Audit</button>
+    <pre id="audit-output">Click to run...</pre>
+  </div>
+
+  <div class="card">
+    <h3>High Roller Check</h3>
+    <button onclick="getData('highrollers')">Fetch High Rollers</button>
+    <pre id="high-roller-output">Click to fetch...</pre>
+  </div>
+
+  <script>
+    async function getData(route) {
+      const output = document.getElementById(route === 'audit' ? 'audit-output' : 'high-roller-output');
+      output.textContent = "Loading...";
+      try {
+        const response = await fetch(`http://localhost:3000/api/${route}`);
+        const data = await response.json();
+        output.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        output.textContent = "Error: Is my server running?";
+      }
+    }
+  </script>
+</body>
+
+</html>
