@@ -58,8 +58,19 @@ function fraudSentry(transactions) {
   }
 }
 
+function formatTime(trx) {
+  let dateC = new Date(trx.timestamp)
+
+  return console.log(dateC.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  }))
+} 
+
 module.exports = {
   audit,
   highRollers,
-  fraudSentry
+  fraudSentry,
+  formatTime
 }

@@ -1,4 +1,8 @@
-const {audit, highRollers, fraudSentry} = require('./processor')
+const {audit, 
+  highRollers, 
+  fraudSentry, 
+  formatTime
+} = require('./processor')
 
 const names = ['Bangis', 'Taufiq', 'Saad', 'Mujahid', 'Ibrahim', 'Chidi', 'Aminu', 'Olu', 'Fatima', 'Zainab'];
 const statuses = ['success', 'success', 'success', 'failed', 'pending']; // More success than failures
@@ -12,11 +16,12 @@ function generateTransactions(count) {
   for (let i = 0; i < count; i++) {
     // cause I want some transactions to cluster (happen at almost the same time)
     // to test for "spamming" or "fraud"
+    // 3.6 million ms = 1 hour
     const randomTimeOffset = Math.floor(Math.random() * 3600000); // within the last hour
 
     transactions.push({
       // Base 36 uses all numbers (0-9) & letters (a-z). 
-      // It turns decimal into a string... start from index 2-9
+      // turns decimal into a string & start from index 2-9
       id: `TRX-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
       customerName: names[Math.floor(Math.random() * names.length)],
       amount: Math.floor(Math.random() * 50000) + 100, // Between 100 and 50,000 Naira
@@ -25,6 +30,7 @@ function generateTransactions(count) {
       timestamp: now - randomTimeOffset,
       currency: "NGN"
     });
+    // console.log(randomTimeOffset)
   }
 
   // Sorted them by time so they look like a real stream of data
@@ -33,11 +39,13 @@ function generateTransactions(count) {
 
 console.log('random math: ',Math.random().toString(30).substring(2,8))
 
-const transactionHistory = generateTransactions(50);
-console.log("Sample Transaction:", transactionHistory[0]);
-console.log("All Transactions:", transactionHistory.length);
-audit(transactions)
-highRollers(transactions)
+// const transactionHistory = generateTransactions(10);
+// console.log("Sample Transaction:", transactionHistory[0]);
+// console.log("All Transactions:", transactionHistory);
+// audit(transactions)
+// highRollers(transactions)
 fraudSentry(transactions)
+// formatTime(transactionHistory[0])
 
-module.exports = transactionHistory;
+// module.exports = transactionHistory;
+module.exports = { generateTransactions };
