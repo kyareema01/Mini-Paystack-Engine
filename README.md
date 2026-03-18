@@ -1,4 +1,4 @@
-# Mini-Paystack-project
+# Mini-Paystack-engine
 A transaction processing simulation built with Vanilla Node js. This project demonstrates advanced JavaScript concepts applied to real world fintech challenges like fraud detection, data auditing, and automated reporting
 
 Tech Stack
@@ -23,7 +23,7 @@ Key Features
 How to Run
   Clone the repo:
   
-  git clone https://mini-paystack.git
+  git clone https:/kyareema01/mini-paystack-backend-engine.git
   cd mini-paystack
   Start the server:
   
