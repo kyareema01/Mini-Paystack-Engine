@@ -1,8 +1,4 @@
-const {audit, 
-  highRollers, 
-  fraudSentry, 
-  formatTime
-} = require('./processor')
+const { formatTime } = require('./processor')
 
 const names = ['Bangis', 'Taufiq', 'Saad', 'Mujahid', 'Ibrahim', 'Chidi', 'Aminu', 'Olu', 'Fatima', 'Zainab'];
 const statuses = ['success', 'success', 'success', 'failed', 'pending']; // More success than failures
